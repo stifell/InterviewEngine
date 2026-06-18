@@ -1,0 +1,98 @@
+services:
+
+  # ── PostgreSQL ──────────────────────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-interviewengine}
+      POSTGRES_USER: ${POSTGRES_USER:-interviewengine}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-interviewengine}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Python sidecar (faster-whisper ASR) ────────────────────────────────────
+  sidecar:
+    build:
+      context: ./sidecar
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      WHISPER_MODEL: ${WHISPER_MODEL:-large-v3-turbo}
+      WHISPER_DEVICE: ${WHISPER_DEVICE:-cpu}
+      WHISPER_COMPUTE_TYPE: ${WHISPER_COMPUTE_TYPE:-int8}
+    volumes:
+      # Модель кэшируется между перезапусками — не скачивается каждый раз (~800 МБ)
+      - whisper-cache:/root/.cache/huggingface
+    ports:
+      - "8001:8001"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8001/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # ── Spring Boot backend ─────────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      sidecar:
+        condition: service_started
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-interviewengine}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-interviewengine}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      TRANSCRIBER_SIDECAR_URL: http://sidecar:8001
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  # ── React frontend (nginx) ──────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: ""   # пустая строка → запросы к /api/* на тот же хост (проксирует nginx)
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+
+  # ── Ollama (офлайн-LLM, альтернатива Gemini) ───────────────────────────────
+  # Чтобы скачать модель: docker compose exec ollama ollama pull llama3.2
+  # Чтобы использовать: поменяйте application.yaml (см. docs/methodology.md)
+  ollama:
+    image: ollama/ollama:latest
+    restart: unless-stopped
+    volumes:
+      - ${OLLAMA_MODELS_DIR:-./ollama-models}:/root/.ollama
+    ports:
+      - "11434:11434"
+    profiles:
+      - ollama   # запускается только явно: docker compose --profile ollama up
+
+volumes:
+  postgres-data:
+  whisper-cache:

@@ -1,0 +1,42 @@
+# Профиль для локального запуска без Postgres.
+# Активируется через: ./mvnw spring-boot:run -Dspring-boot.run.profiles=local
+spring:
+  datasource:
+    url: jdbc:h2:mem:interviewengine;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate.dialect: org.hibernate.dialect.H2Dialect
+    open-in-view: false
+  flyway:
+    enabled: true
+  ai:
+    google:
+      genai:
+        # Ключ берётся из переменной окружения GEMINI_API_KEY.
+        # Пример: set GEMINI_API_KEY=AIza... (Windows) / export GEMINI_API_KEY=AIza... (bash)
+        api-key: ${GEMINI_API_KEY:dummy-key-for-local-bootstrap}
+    # Отключаем встроенный ретрай Spring AI — 429-логика реализована в SpringAiLlmJudge.
+    # По умолчанию Spring AI делал 3 попытки подряд → мы умножали RPM в 3 раза.
+    retry:
+      max-attempts: 1
+      on-client-errors: false
+
+# ── Прокси для Gemini API ────────────────────────────────────────────────────
+# Включить, если нужен HTTP/HTTPS-прокси для доступа к generativelanguage.googleapis.com.
+# Выставляет JVM-свойства https.proxyHost/Port до инициализации Spring AI клиентов.
+proxy:
+  enabled: true
+  host: 127.0.0.1
+  port: 10801
+
+# ── Транскрибер ───────────────────────────────────────────────────────────────
+# Включает SidecarTranscriber (Python + faster-whisper) вместо GeminiTranscriber.
+# Убрать строку — вернётся multimodal-вызов Gemini.
+transcriber:
+  sidecar:
+    url: http://127.0.0.1:8001

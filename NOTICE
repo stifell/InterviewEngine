@@ -1,0 +1,30 @@
+NOTICE — Authorship and Ownership / Авторство и права
+
+Project: Interview Evaluation Engine ("Движок автоматической оценки интервью")
+Author and sole copyright holder: Denis Matyushkin (https://github.com/stifell)
+Contact: semj6822@gmail.com
+Copyright (c) 2026 Denis Matyushkin. All Rights Reserved.
+
+--------------------------------------------------------------------------------
+
+EN. This project was created and authored by Denis Matyushkin. It is licensed
+under a proprietary "All Rights Reserved" license (see the LICENSE file). No
+rights to use, copy, modify, distribute, sell, transfer, or sublicense the
+software are granted to anyone without the prior written permission of the
+author. Publication of this repository does not transfer or waive any rights.
+Authorship is evidenced, among other things, by the version-control history of
+this repository.
+
+RU. Этот проект создан и написан Денисом Матюшкиным. Распространяется на
+условиях проприетарной лицензии «All Rights Reserved» (см. файл LICENSE).
+Никакие права на использование, копирование, изменение, распространение,
+продажу, передачу или сублицензирование никому не предоставляются без
+предварительного письменного разрешения автора. Публикация репозитория не
+влечёт передачи или отказа от каких-либо прав. Авторство подтверждается, в
+частности, историей системы контроля версий этого репозитория.
+
+--------------------------------------------------------------------------------
+
+Third-party components retain their own licenses (Spring, Spring AI,
+faster-whisper, pyannote.audio, praat-parselmouth, React, etc.). This NOTICE and
+the LICENSE apply to the original work authored by the copyright holder above.

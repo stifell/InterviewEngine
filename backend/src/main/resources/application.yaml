@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: backend
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+  ai:
+    google:
+      genai:
+        api-key: ${GEMINI_API_KEY:}
+        chat:
+          options:
+            model: gemini-2.5-flash
+            temperature: 0.2

@@ -1,0 +1,15 @@
+node_modules
+dist
+dist-ssr
+*.local
+.vite
+
+# build-артефакты TypeScript / Vite
+*.tsbuildinfo
+vite.config.d.ts
+vite.config.js
+
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

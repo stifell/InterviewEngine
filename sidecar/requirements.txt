@@ -1,0 +1,32 @@
+fastapi==0.115.6
+uvicorn[standard]==0.32.1
+python-multipart==0.0.20
+
+# ASR. faster-whisper в 5–10× быстрее оригинального openai-whisper на CPU.
+faster-whisper>=1.1.0
+
+# Диаризация (разделение спикеров). Требует torch.
+# Скачивает pyannote/speaker-diarization-3.1 с HuggingFace при первом запуске.
+# Нужен HUGGINGFACE_TOKEN в окружении (модель гейтирована, лицензия бесплатна).
+pyannote.audio>=3.3.0
+
+# PyTorch нужен ТОЛЬКО для диаризации (pyannote); faster-whisper работает на CTranslate2.
+# ВАЖНО: для GPU ставь CUDA-сборку ОТДЕЛЬНО и ДО этого файла, например:
+#   pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu128
+# Здесь нижний порог НАМЕРЕННО свободный (>=2.6), чтобы pip НЕ перетёр уже
+# установленную CUDA-сборку более новой CPU-версией (это и ломало GPU).
+torch>=2.6
+
+# CUDA-библиотеки для faster-whisper/CTranslate2 на GPU (cublas64_12.dll, cuDNN 9).
+# Нужны ТОЛЬКО при WHISPER_DEVICE=cuda. Большие (~600 МБ) — поэтому раскомментируй
+# вручную или ставь отдельной командой:
+#   pip install nvidia-cublas-cu12 nvidia-cudnn-cu12
+# nvidia-cublas-cu12
+# nvidia-cudnn-cu12
+
+# numpy нужен и для faster-whisper, и для channel-diff детекции фейкового стерео
+numpy>=1.26
+
+# Просодика (F0, интонация, интенсивность) через Praat. Обёртка Python над Praat —
+# академический эталон извлечения просодических характеристик речи.
+praat-parselmouth>=0.4.3

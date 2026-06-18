@@ -1,0 +1,77 @@
+PROPRIETARY SOFTWARE LICENSE — ALL RIGHTS RESERVED
+
+Copyright (c) 2026 Denis Matyushkin (https://github.com/stifell).
+All Rights Reserved.
+
+================================================================================
+ENGLISH
+================================================================================
+
+This software, including its source code, documentation, configuration,
+rubrics, prompts, and all other accompanying files (collectively, the
+"Software"), is the proprietary and confidential property of the copyright
+holder named above (the "Author").
+
+NO LICENSE OR RIGHT IS GRANTED. Without the prior, explicit, written
+permission of the Author, no person or entity may, in whole or in part:
+
+  1. use, run, or execute the Software for any purpose;
+  2. copy, reproduce, or store the Software;
+  3. modify, adapt, translate, or create derivative works of the Software;
+  4. merge, publish, distribute, sublicense, lease, rent, or sell the
+     Software or any copy thereof;
+  5. make the Software, or access to it, available to any third party;
+  6. reverse engineer, decompile, or disassemble the Software, except to the
+     limited extent such restriction is expressly prohibited by applicable law;
+  7. remove, alter, or obscure this notice or any copyright or proprietary
+     marking.
+
+Viewing this repository (for example, where it is hosted publicly) does NOT
+grant any of the rights listed above. All rights not expressly granted in
+writing by the Author are reserved.
+
+Any permission, if granted, is non-exclusive, non-transferable, revocable at
+any time, and limited strictly to the scope stated in that written grant.
+
+TERMINATION. Any breach of this license terminates all permissions
+automatically and immediately, and obliges the breaching party to destroy all
+copies of the Software in their possession or control.
+
+NO WARRANTY. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT.
+
+LIMITATION OF LIABILITY. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY CLAIM,
+DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR
+OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+OR OTHER DEALINGS IN THE SOFTWARE.
+
+To request permission, contact the Author at: semj6822@gmail.com
+
+This license does not grant any rights to third-party components bundled with
+or used by the Software; those remain governed by their own respective licenses.
+
+================================================================================
+РУССКИЙ (перевод для удобства; в случае расхождений приоритет имеет текст выше)
+================================================================================
+
+Программное обеспечение, включая исходный код, документацию, конфигурацию,
+рубрикаторы, промпты и все прочие сопутствующие файлы (далее — «ПО»), является
+проприетарной и конфиденциальной собственностью правообладателя, указанного
+выше (далее — «Автор»).
+
+НИКАКИЕ ПРАВА НЕ ПРЕДОСТАВЛЯЮТСЯ. Без предварительного явного письменного
+разрешения Автора никакое лицо не вправе полностью или частично: использовать,
+запускать, копировать, изменять, создавать производные работы, объединять,
+публиковать, распространять, сублицензировать, сдавать в аренду или продавать
+ПО, предоставлять к нему доступ третьим лицам, а также декомпилировать или
+осуществлять обратное проектирование (кроме случаев, прямо разрешённых законом).
+
+Просмотр этого репозитория (в том числе при публичном размещении) НЕ
+предоставляет ни одного из перечисленных прав. Все права, прямо не
+предоставленные Автором в письменной форме, сохраняются за ним.
+
+ПО предоставляется «КАК ЕСТЬ», без каких-либо гарантий. Автор не несёт
+ответственности за любой ущерб, связанный с использованием ПО.
+
+Для запроса разрешения свяжитесь с Автором: semj6822@gmail.com

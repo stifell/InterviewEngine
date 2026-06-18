@@ -1,0 +1,37 @@
+# Профиль для запуска в Docker-compose (PostgreSQL + sidecar в той же сети).
+# Активируется через переменную SPRING_PROFILES_ACTIVE=docker в Dockerfile / compose.
+spring:
+  datasource:
+    # Хост "postgres" — имя сервиса в docker-compose.yml
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://postgres:5432/interviewengine}
+    driver-class-name: org.postgresql.Driver
+    username: ${SPRING_DATASOURCE_USERNAME:interviewengine}
+    password: ${SPRING_DATASOURCE_PASSWORD:changeme}
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+  flyway:
+    enabled: true
+  ai:
+    google:
+      genai:
+        # Передаётся через переменную окружения GEMINI_API_KEY в compose / .env
+        api-key: ${GEMINI_API_KEY:}
+
+# Хост "sidecar" — имя сервиса в docker-compose.yml
+transcriber:
+  sidecar:
+    url: ${TRANSCRIBER_SIDECAR_URL:http://sidecar:8001}
+
+# Actuator для healthcheck контейнера
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
